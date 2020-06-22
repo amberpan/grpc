@@ -1,4 +1,4 @@
-package com.grpc.sample.server.api;
+package com.grpc.server.api;
 
 import com.grpc.sample.HelloRequest;
 import com.grpc.sample.HelloResponse;

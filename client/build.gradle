@@ -1,23 +1,7 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        // ASSUMES GRADLE 2.12 OR HIGHER. Use plugin version 0.7.5 with earlier
-        // gradle versions
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.12'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
-
-    }
-}
 plugins {
     id 'java'
-    id "com.google.protobuf" version "0.8.12"
-    id 'java-library'
-    id 'com.github.johnrengelman.shadow' version "2.0.1"
+    id "com.google.protobuf"
 }
-
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -26,22 +10,18 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
+    protobuf project(':proto')
     compile "com.google.api.grpc:proto-google-common-protos:0.1.9"
     compile "io.grpc:grpc-netty:${grpcVersion}"
     compile "io.grpc:grpc-protobuf:${grpcVersion}"
     compile "io.grpc:grpc-stub:${grpcVersion}"
     compile "io.netty:netty-tcnative-boringssl-static:${nettyTcNativeVersion}"
     compile "org.bouncycastle:bcmail-jdk15:1.46"
-
-    testCompile "io.grpc:grpc-testing:${grpcVersion}"
-    testCompile "org.mockito:mockito-core:1.9.5"
-
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-/*protobuf {
+protobuf {
     protoc {
         artifact = 'com.google.protobuf:protoc:3.4.0'
     }
@@ -55,7 +35,7 @@ dependencies {
             grpc {}
         }
     }
-}*/
+}
 
 //// Inform IDEs like IntelliJ IDEA, Eclipse or NetBeans about the generated code.
 sourceSets {
@@ -66,8 +46,3 @@ sourceSets {
         }
     }
 }
-
-//task sourcesJar(type: Jar, dependsOn: classes) {
-//    archiveClassifier = "sources"
-//    from sourceSets.main.allSource
-//}
